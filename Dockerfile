@@ -32,7 +32,8 @@ RUN rasa train
 
 # Expose the default Rasa port for clarity.
 # Render will map its internal $PORT (e.g., 10000) to this exposed port.
-EXPOSE 5005 # Changed to standard Rasa API port
+EXPOSE 5005 
+# Changed to standard Rasa API port
 
 # Define a default command. Render's "Start Command" will override this.
 # This is useful for local testing with 'docker run'.
