@@ -17,27 +17,21 @@ FROM rasa/rasa:3.6.21-full
 WORKDIR /app
 
 # Copy your entire Rasa project into the container
-# This assumes your Dockerfile is at the root of your Rasa project
-# which contains data/, models/, config.yml, domain.yml, endpoints.yml, etc.
 COPY . /app
 
-# --- START OF VIRTUAL ENVIRONMENT CHANGES ---
+# --- START OF VIRTUAL ENVIRONMENT CHANGES (LOCATION CHANGE) ---
 
-# Create a virtual environment inside a directory where the user has write permissions
-# /opt/venv is a common and good choice
-RUN python3 -m venv /opt/venv
+# Create a virtual environment inside the /app directory
+# The WORKDIR /app and COPY . /app lines ensure the user has permissions here.
+RUN python3 -m venv /app/venv
 
 # Activate the virtual environment and install dependencies into it.
-# This ensures your project's dependencies are installed into an isolated space
-# where you have full write permissions, bypassing system package issues.
-# --no-deps is NOT usually needed here; --upgrade and --force-reinstall
-# ensure your pinned versions take precedence.
-RUN /opt/venv/bin/pip install --no-cache-dir --upgrade --force-reinstall -r requirements.txt
+# Use the pip executable from the newly created venv in /app/venv
+RUN /app/venv/bin/pip install --no-cache-dir --upgrade --force-reinstall -r requirements.txt
 
 # Set the PATH environment variable to prioritize the virtual environment's binaries.
-# This ensures that 'rasa' commands and other Python scripts use the packages
-# installed in your virtual environment, not the system ones.
-ENV PATH="/opt/venv/bin:$PATH"
+# Ensure it points to the venv in /app
+ENV PATH="/app/venv/bin:$PATH"
 
 # --- END OF VIRTUAL ENVIRONMENT CHANGES ---
 
@@ -48,6 +42,4 @@ RUN rasa train
 EXPOSE 5005
 
 # Define the command to run your Rasa server.
-# This will also use the Rasa installed in your venv due to the PATH setting.
-# Remember Render's "Start Command" will override this, so keep it consistent there.
 CMD ["rasa", "run", "--enable-api", "--cors", "*", "--debug", "--port", "5005", "--host", "0.0.0.0", "--model", "models", "--endpoints", "endpoints.yml"]
