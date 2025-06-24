@@ -18,6 +18,6 @@ COPY . /app
 
 RUN rasa train
 
-EXPOSE 5005
+EXPOSE 8000
 
-CMD ["sh", "-c", "rasa run --enable-api --cors '*' --debug --port ${PORT:-5005}"]
+CMD ["run", "--enable-api", "--cors", "*", "--debug", "--port", "8000"]
