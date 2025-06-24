@@ -41,5 +41,8 @@ RUN rasa train
 # Expose the default Rasa API port for clarity.
 EXPOSE 5005
 
+# IMPORTANT: Override ENTRYPOINT fully
+ENTRYPOINT []
+
 # Define the command to run your Rasa server.
 CMD ["run", "--enable-api", "--cors", "*", "--debug", "--port", "5005", "--host", "0.0.0.0", "--model", "models", "--endpoints", "endpoints.yml"]
