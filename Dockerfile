@@ -24,7 +24,7 @@ COPY . /app
 # Install any additional Python dependencies your Rasa project might have
 # Ensure you have a requirements.txt file in your project root if needed
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade --force-reinstall --break-system-packages -r requirements.txt
 
 # Train the model during build. This is fine, but can make builds long.
 # If you train locally and commit the 'models' folder, you can remove this.
