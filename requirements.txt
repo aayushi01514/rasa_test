@@ -1,6 +1,6 @@
 rasa==3.6.21
 rasa-sdk==3.6.2
 sqlalchemy<2.0
-tensorflow==2.11.0
+tensorflow==2.12.0  # <-- CHANGED THIS LINE
 python-engineio<5
 python-socketio<5
