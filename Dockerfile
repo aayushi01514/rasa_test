@@ -42,4 +42,4 @@ RUN rasa train
 EXPOSE 5005
 
 # Define the command to run your Rasa server.
-CMD ["rasa", "run", "--enable-api", "--cors", "*", "--debug", "--port", "5005", "--host", "0.0.0.0", "--model", "models", "--endpoints", "endpoints.yml"]
+CMD ["run", "--enable-api", "--cors", "*", "--debug", "--port", "5005", "--host", "0.0.0.0", "--model", "models", "--endpoints", "endpoints.yml"]
