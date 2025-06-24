@@ -2,5 +2,3 @@ rasa==3.6.21
 rasa-sdk==3.6.2
 sqlalchemy<2.0
 tensorflow==2.12.0  # <-- CHANGED THIS LINE
-python-engineio==5.0.1  # Or whatever latest 5.x version Rasa 3.6.21 needs
-python-socketio==5.8.0  # Pin to the version already present and compatible
